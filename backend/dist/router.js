@@ -12,13 +12,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const config_1 = require("./config");
 const router = (0, express_1.Router)();
+router.get('/userId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield config_1.prismaClient.user.findFirst({
+        where: {
+            username: req.username
+        }
+    });
+    res.json({
+        userId: user === null || user === void 0 ? void 0 : user.id
+    });
+}));
 router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, link } = req.body;
+    const { title, link, userId } = req.body;
     yield config_1.prismaClient.card.create({
         data: {
             title,
-            link
+            link,
+            userId
         }
+    });
+    res.json({
+        message: "creating your qr"
+    });
+}));
+router.get('/generate', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.body;
+    const card = yield config_1.prismaClient.card.findMany({
+        where: {
+            userId
+        }
+    });
+    res.json({
+        message: "qr card generated",
+        card
     });
 }));
 exports.default = router;

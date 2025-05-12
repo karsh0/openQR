@@ -50,11 +50,13 @@ app.post('/signin', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             message: "password invalid"
         });
     }
-    const token = jsonwebtoken_1.default.sign({ userId: user.id }, (_a = process.env.JWT_SECRET) !== null && _a !== void 0 ? _a : "");
+    const token = jsonwebtoken_1.default.sign({ username: user.username }, (_a = process.env.JWT_SECRET) !== null && _a !== void 0 ? _a : "");
     res.json({
         message: "signin success",
         token
     });
 }));
 app.use('/', middleware_1.default, router_1.default);
-app.listen(3000);
+app.listen(3000, () => {
+    console.log('server running on port 3000');
+});

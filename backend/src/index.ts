@@ -49,4 +49,6 @@ app.post('/signin', async (req,res)=>{
 })
 
 app.use('/', middleware, router)
-app.listen(3000)
+app.listen(3000, ()=>{
+    console.log('server running on port 3000')
+})

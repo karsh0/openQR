@@ -14,8 +14,7 @@ router.get('/userId', async(req,res)=>{
 })
 
 router.post('/create', async(req,res)=>{
-    const userId = req.body;
-    const { title, link } = req.body;
+    const { title, link ,userId} = req.body;
     await prismaClient.card.create({
         data:{
             title,
@@ -31,7 +30,7 @@ router.post('/create', async(req,res)=>{
 })
 
 router.get('/generate', async(req,res)=>{
-    const userId = req.body;
+    const { userId } = req.body;
     const card = await prismaClient.card.findMany({
         where:{
             userId   
