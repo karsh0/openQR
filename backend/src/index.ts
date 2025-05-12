@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import router from './router'
 import { prismaClient } from './config'
 import { compare, hash } from 'bcryptjs'
+import middleware from './middleware'
 require('dotenv').config()  
 const app = express()
 app.use(express.json())
@@ -40,13 +41,12 @@ app.post('/signin', async (req,res)=>{
             message:"password invalid"
         })
     }
-    const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET || "")
+    const token = jwt.sign({username: user.username}, process.env.JWT_SECRET ?? "")
     res.json({
         message:"signin success",
         token
     })
 })
 
-
-app.use('/', router)
+app.use('/', middleware, router)
 app.listen(3000)

@@ -2213,9 +2213,9 @@ export namespace Prisma {
 
   export type CardGroupByOutputType = {
     id: number
-    image: string
+    image: string | null
     title: string
-    shortLink: string
+    shortLink: string | null
     link: string
     timestamp: Date
     userId: string
@@ -2301,9 +2301,9 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      image: string
+      image: string | null
       title: string
-      shortLink: string
+      shortLink: string | null
       link: string
       timestamp: Date
       userId: string
@@ -3204,6 +3204,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
@@ -3318,9 +3326,9 @@ export namespace Prisma {
     OR?: CardWhereInput[]
     NOT?: CardWhereInput | CardWhereInput[]
     id?: IntFilter<"Card"> | number
-    image?: StringFilter<"Card"> | string
+    image?: StringNullableFilter<"Card"> | string | null
     title?: StringFilter<"Card"> | string
-    shortLink?: StringFilter<"Card"> | string
+    shortLink?: StringNullableFilter<"Card"> | string | null
     link?: StringFilter<"Card"> | string
     timestamp?: DateTimeFilter<"Card"> | Date | string
     userId?: StringFilter<"Card"> | string
@@ -3329,9 +3337,9 @@ export namespace Prisma {
 
   export type CardOrderByWithRelationInput = {
     id?: SortOrder
-    image?: SortOrder
+    image?: SortOrderInput | SortOrder
     title?: SortOrder
-    shortLink?: SortOrder
+    shortLink?: SortOrderInput | SortOrder
     link?: SortOrder
     timestamp?: SortOrder
     userId?: SortOrder
@@ -3343,9 +3351,9 @@ export namespace Prisma {
     AND?: CardWhereInput | CardWhereInput[]
     OR?: CardWhereInput[]
     NOT?: CardWhereInput | CardWhereInput[]
-    image?: StringFilter<"Card"> | string
+    image?: StringNullableFilter<"Card"> | string | null
     title?: StringFilter<"Card"> | string
-    shortLink?: StringFilter<"Card"> | string
+    shortLink?: StringNullableFilter<"Card"> | string | null
     link?: StringFilter<"Card"> | string
     timestamp?: DateTimeFilter<"Card"> | Date | string
     userId?: StringFilter<"Card"> | string
@@ -3354,9 +3362,9 @@ export namespace Prisma {
 
   export type CardOrderByWithAggregationInput = {
     id?: SortOrder
-    image?: SortOrder
+    image?: SortOrderInput | SortOrder
     title?: SortOrder
-    shortLink?: SortOrder
+    shortLink?: SortOrderInput | SortOrder
     link?: SortOrder
     timestamp?: SortOrder
     userId?: SortOrder
@@ -3372,9 +3380,9 @@ export namespace Prisma {
     OR?: CardScalarWhereWithAggregatesInput[]
     NOT?: CardScalarWhereWithAggregatesInput | CardScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Card"> | number
-    image?: StringWithAggregatesFilter<"Card"> | string
+    image?: StringNullableWithAggregatesFilter<"Card"> | string | null
     title?: StringWithAggregatesFilter<"Card"> | string
-    shortLink?: StringWithAggregatesFilter<"Card"> | string
+    shortLink?: StringNullableWithAggregatesFilter<"Card"> | string | null
     link?: StringWithAggregatesFilter<"Card"> | string
     timestamp?: DateTimeWithAggregatesFilter<"Card"> | Date | string
     userId?: StringWithAggregatesFilter<"Card"> | string
@@ -3427,9 +3435,9 @@ export namespace Prisma {
   }
 
   export type CardCreateInput = {
-    image: string
+    image?: string | null
     title: string
-    shortLink: string
+    shortLink?: string | null
     link: string
     timestamp?: Date | string
     user: UserCreateNestedOneWithoutCardInput
@@ -3437,18 +3445,18 @@ export namespace Prisma {
 
   export type CardUncheckedCreateInput = {
     id?: number
-    image: string
+    image?: string | null
     title: string
-    shortLink: string
+    shortLink?: string | null
     link: string
     timestamp?: Date | string
     userId: string
   }
 
   export type CardUpdateInput = {
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
-    shortLink?: StringFieldUpdateOperationsInput | string
+    shortLink?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCardNestedInput
@@ -3456,9 +3464,9 @@ export namespace Prisma {
 
   export type CardUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
-    shortLink?: StringFieldUpdateOperationsInput | string
+    shortLink?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -3466,27 +3474,27 @@ export namespace Prisma {
 
   export type CardCreateManyInput = {
     id?: number
-    image: string
+    image?: string | null
     title: string
-    shortLink: string
+    shortLink?: string | null
     link: string
     timestamp?: Date | string
     userId: string
   }
 
   export type CardUpdateManyMutationInput = {
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
-    shortLink?: StringFieldUpdateOperationsInput | string
+    shortLink?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CardUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
-    shortLink?: StringFieldUpdateOperationsInput | string
+    shortLink?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -3564,6 +3572,21 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3578,6 +3601,11 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type CardCountOrderByAggregateInput = {
@@ -3632,6 +3660,24 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -3700,6 +3746,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -3762,6 +3812,20 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3800,6 +3864,34 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3815,18 +3907,18 @@ export namespace Prisma {
   }
 
   export type CardCreateWithoutUserInput = {
-    image: string
+    image?: string | null
     title: string
-    shortLink: string
+    shortLink?: string | null
     link: string
     timestamp?: Date | string
   }
 
   export type CardUncheckedCreateWithoutUserInput = {
     id?: number
-    image: string
+    image?: string | null
     title: string
-    shortLink: string
+    shortLink?: string | null
     link: string
     timestamp?: Date | string
   }
@@ -3862,9 +3954,9 @@ export namespace Prisma {
     OR?: CardScalarWhereInput[]
     NOT?: CardScalarWhereInput | CardScalarWhereInput[]
     id?: IntFilter<"Card"> | number
-    image?: StringFilter<"Card"> | string
+    image?: StringNullableFilter<"Card"> | string | null
     title?: StringFilter<"Card"> | string
-    shortLink?: StringFilter<"Card"> | string
+    shortLink?: StringNullableFilter<"Card"> | string | null
     link?: StringFilter<"Card"> | string
     timestamp?: DateTimeFilter<"Card"> | Date | string
     userId?: StringFilter<"Card"> | string
@@ -3912,35 +4004,35 @@ export namespace Prisma {
 
   export type CardCreateManyUserInput = {
     id?: number
-    image: string
+    image?: string | null
     title: string
-    shortLink: string
+    shortLink?: string | null
     link: string
     timestamp?: Date | string
   }
 
   export type CardUpdateWithoutUserInput = {
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
-    shortLink?: StringFieldUpdateOperationsInput | string
+    shortLink?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CardUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
-    shortLink?: StringFieldUpdateOperationsInput | string
+    shortLink?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CardUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
-    shortLink?: StringFieldUpdateOperationsInput | string
+    shortLink?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }

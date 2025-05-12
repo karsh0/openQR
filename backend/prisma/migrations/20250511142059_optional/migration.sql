@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Card" ALTER COLUMN "image" DROP NOT NULL,
+ALTER COLUMN "shortLink" DROP NOT NULL;

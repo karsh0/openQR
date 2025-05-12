@@ -17,9 +17,9 @@ model User {
 
 model Card {
   id        Int      @id @default(autoincrement())
-  image     String
+  image     String?
   title     String
-  shortLink String
+  shortLink String?
   link      String
   timestamp DateTime @default(now())
   userId    String
