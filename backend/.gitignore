@@ -6,6 +6,8 @@ yarn-error.log
 
 # Build directories
 /dist
+.env
+dist/
 /build
 
 # Environment variables

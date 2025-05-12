@@ -2,9 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
 export default function middleware(req:Request ,res:Response ,next:NextFunction){
-    const authHeader = req.headers['authorization'];
-    const token = authHeader?.split(' ')[1];
-
+    const token = req.cookies.token;
     if (!token) {
         res.status(401).json({ message: "Token not found" });
         return;

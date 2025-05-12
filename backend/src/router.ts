@@ -24,7 +24,7 @@ router.post('/create', async(req,res)=>{
     })
 
     res.json({
-        message:"creating your qr"
+        message:"qr created"
     })
 
 })
