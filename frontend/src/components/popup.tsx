@@ -3,6 +3,9 @@ import { Button } from "./button";
 import { Input } from "./input";
 import { X } from 'lucide-react';
 import QRCode from "react-qr-code";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config/config";
 
 type PopupProps = {
   setToggle: (value: boolean) => void;
@@ -12,11 +15,20 @@ export function Popup({ setToggle }: PopupProps) {
   const titleRef = useRef<HTMLInputElement | null>(null);
   const customRef = useRef<HTMLInputElement | null>(null);
   const [url, setUrl] = useState<string>("");
+  const navigate = useNavigate()
 
-  function createQr() {
+  async function createQr() {
     const title = titleRef.current?.value;
     const custom = customRef.current?.value;
-    console.log({ title, url, custom });
+
+    const res = await axios.post(`${BACKEND_URL }/create`,{
+      title,
+      link: url
+    },{
+      withCredentials: true
+    })
+    console.log(res);
+    setToggle(false)
   }
 
   return (
