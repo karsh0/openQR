@@ -32,8 +32,8 @@ export default function Dashboard() {
   }, [toggle]);
 
   return (
-    <div className="flex flex-col min-h-screen w-screen bg-black text-white p-8 overflow-y-auto">
-      <div className="max-w-5xl mx-auto w-full space-y-6">
+    <div className="flex flex-col min-h-screen w-screen bg-[#0d0d0d] text-white p-8 overflow-y-auto">
+      <div className="max-w-6xl mx-auto w-full space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <div className="max-w-69">

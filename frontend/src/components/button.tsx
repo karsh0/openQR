@@ -7,7 +7,7 @@ type ButtonProps = {
   export function Button({ title, onClick, dark }: ButtonProps) {
     return (
         <button
-          className={`px-3 py-3 w-full rounded-xl ${dark ? "bg-black text-white" : "bg-white text-black"}`}
+          className={`px-3 py-3 w-full cursor-pointer rounded-xl ${dark ? "bg-black text-white" : "bg-white text-black"}`}
           onClick={onClick}
         >
           {title}
