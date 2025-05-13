@@ -1,62 +1,77 @@
-import express from 'express'
-import jwt from 'jsonwebtoken'
-import router from './router'
-import { prismaClient } from './config'
-import { compare, hash } from 'bcryptjs'
-import middleware from './middleware'
-import cors from 'cors'
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import router from './router';
+import { prismaClient } from './config';
+import { compare, hash } from 'bcryptjs';
+import middleware from './middleware';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
-require('dotenv').config()  
-const app = express()
+
+require('dotenv').config();
+
+const app = express();
+
 app.use(cors({
-    origin: '*', 
-    credentials: true,
-}))
-app.use(cookieParser())
-app.use(express.json())
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
+app.use(cookieParser());
+app.use(express.json());
 
-
-app.post('/signup', async(req,res)=>{
+app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
     const hashedPassword = await hash(password, 2);
+
     await prismaClient.user.create({
-        data:{
+        data: {
             username,
             password: hashedPassword
         }
-    })
+    });
 
     res.json({
-        message:"User created"
-    })
-})
+        message: "User created"
+    });
+});
 
-app.post('/signin', async (req,res)=>{
+app.post('/signin', async (req, res) => {
     const { username, password } = req.body;
 
     const user = await prismaClient.user.findFirst({
-        where:{
+        where: {
             username,
         }
-    })
-    if(!user) return;
+    });
 
-    const passwordMatch = compare(password, user.password)
+    if (!user){
+        res.status(401).json({ message: 'User not found' });
+        return;
+    } 
 
-    if(!passwordMatch){
-        res.json({
-            message:"password invalid"
-        })
+    const passwordMatch = await compare(password, user.password);
+
+    if (!passwordMatch) {
+        res.status(401).json({
+            message: "Password invalid"
+        });
+        return;
     }
-    const token = jwt.sign({username: user.username}, process.env.JWT_SECRET ?? "")
-     res.cookie('token', token);
+
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET ?? "");
+
+    res.cookie('token', token, {
+        httpOnly: true,
+        secure: false, // true in production
+    });
+    
     res.json({
         message: "Signin success",
         token
-      });
-})
+    });
+});
 
-app.use('/', middleware, router)
-app.listen(3000, ()=>{
-    console.log('server running on port 3000')
-})
+app.use('/', middleware, router);
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
