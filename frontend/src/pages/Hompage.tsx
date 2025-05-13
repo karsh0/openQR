@@ -1,9 +1,7 @@
 import { useRef } from "react";
-import { Input } from "../components/input";
 import { motion } from "framer-motion";
 import { Button } from "../components/button";
 import { useNavigate } from "react-router-dom";
-import { Navbar } from "../components/navbar";
 
 export default function Homepage() {
   const navigate = useNavigate();

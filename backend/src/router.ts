@@ -2,16 +2,16 @@ import { Router } from 'express'
 import { prismaClient } from './config';
 const router = Router()
 
-// router.get('/userId', async(req,res)=>{
-//     const user = await prismaClient.user.findFirst({
-//         where:{
-//             id: req.userId
-//         }
-//     })
-//     res.json({
-//         userId: user?.id
-//     })
-// })
+router.get('/user', async(req,res)=>{
+    const user = await prismaClient.user.findFirst({
+        where:{
+            id: req.userId
+        }
+    })
+    res.json({
+        username: user?.username
+    })
+})
 
 router.post('/create', async(req,res)=>{
     const { title, link} = req.body;

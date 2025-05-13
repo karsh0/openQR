@@ -4,6 +4,7 @@ import { Popup } from "../components/popup";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
 import { Card } from "../components/card";
+import { motion } from "framer-motion";
 
 type CardType = {
   link: string,
@@ -33,7 +34,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col min-h-screen w-screen bg-[#0d0d0d] text-white p-8 overflow-y-auto">
-      <div className="max-w-6xl mx-auto w-full space-y-6">
+      <div className="max-w-7xl mx-auto w-full space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <div className="max-w-69">
@@ -46,7 +47,13 @@ export default function Dashboard() {
         <h2 className="text-xl font-semibold border-b border-white/10 pb-2">Your QR Collections</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {data.map((x, i) => (
+            <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
+            >
             <Card key={i} url={x.link} title={x.title} timestamp={x.timestamp} />
+            </motion.div>
           ))}
         </div>
       </div>
