@@ -39,7 +39,7 @@ export function Popup({ setToggle, setFetch, value }: PopupProps) {
   }
 
   return (
-    <div className="bg-white text-black p-6 rounded-2xl shadow-xl w-96 flex flex-col gap-4 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div className="bg-white text-black p-6 rounded-2xl shadow-xl w-80 md:w-96 flex flex-col gap-4 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <X
         className="absolute right-4 top-4 cursor-pointer"
         onClick={() => setToggle(false)}
