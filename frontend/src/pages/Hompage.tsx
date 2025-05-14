@@ -24,13 +24,13 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className="flex w-full max-w-xl items-center bg-[#1a1a1a] px-4 py-2 rounded-xl shadow-md mb-16">
+      <div className="flex w-full max-w-xl items-center bg-[#1a1a1a] p-2 md:px-4 md:py-2 rounded-xl shadow-md mb-5 md:mb-16">
         <input
           ref={inputRef}
           placeholder="Paste your long URL here..."
           className="flex-1 mr-2 bg-transparent border-none text-white placeholder-gray-500 focus:outline-none"
         />
-       <div className="max-w-96"> <Button title="Generate QR" onClick={handleGenerate} dark={false} /></div>
+       <div className="max-w-96 text-sm md:text:lg"> <Button title="Generate QR" onClick={handleGenerate} dark={false} /></div>
       </div>
 
       <div className="mt-20 max-w-7xl w-full">

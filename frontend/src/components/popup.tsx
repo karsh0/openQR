@@ -1,38 +1,41 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "./button";
 import { Input } from "./input";
-import { X } from 'lucide-react';
+import { X } from "lucide-react";
 import QRCode from "react-qr-code";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
+import { useNavigate } from "react-router-dom";
 
 type PopupProps = {
-  setToggle: (value: boolean) => void,
-  value: string | null
+  setToggle: (value: boolean) => void;
+  setFetch: (value: boolean) => void;
+  value: string | null;
 };
 
-export function Popup({ setToggle , value}: PopupProps) {
+export function Popup({ setToggle, setFetch, value }: PopupProps) {
   const titleRef = useRef<HTMLInputElement | null>(null);
   const customRef = useRef<HTMLInputElement | null>(null);
-  const urlRef = useRef<HTMLInputElement | null>(null)
-  let url = urlRef.current?.value;
-  if(value){
-    url = value
-  }
-  
+  const [url, setUrl] = useState(value || ""); // controlled input
+  const navigate = useNavigate();
+
   async function createQr() {
     const title = titleRef.current?.value;
 
-    // const custom = customRef.current?.value;
-
-    const res = await axios.post(`${BACKEND_URL }/create`,{
-      title,
-      link: url
-    },{
-      withCredentials: true
-    })
+    const res = await axios.post(
+      `${BACKEND_URL}/create`,
+      {
+        title,
+        link: url,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     console.log(res);
-    setToggle(false)
+    setToggle(false);
+    setFetch(true);
+    navigate("/dashboard");
   }
 
   return (
@@ -62,7 +65,7 @@ export function Popup({ setToggle , value}: PopupProps) {
         type="text"
         placeholder="Long URL"
         value={url}
-        ref={urlRef}
+        onChange={(e) => setUrl(e.target.value)}
         className="w-full p-2 border rounded-md"
       />
 

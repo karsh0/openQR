@@ -70,6 +70,15 @@ app.post('/signin', async (req, res) => {
     });
 });
 
+app.post('/logout',  (req,res)=>{
+    console.log(req.cookies.token)
+    res.clearCookie('token')
+
+    res.json({
+        message:"logout success"
+    })
+})
+
 app.use('/', middleware, router);
 
 app.listen(3000, () => {

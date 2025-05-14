@@ -3,7 +3,7 @@ import QRCode from "react-qr-code";
 export function Card({ url, title, timestamp }: { url: string; title: string; timestamp: string }) {
   const date = new Date(timestamp)
   return (
-    <div className="bg-white shadow-white shadow-sm text-black px-4 py-3 m-2 cursor-pointer rounded-xl flex justify-between">
+    <div className="relative bg-white shadow-white shadow-sm text-black px-4 py-3 m-2 cursor-pointer rounded-xl flex justify-between">
       <div className="flex gap-2">
       <div className="w-[100px] h-[100px]">
         <QRCode id="QRCode" value={url} className="w-full h-full" />
@@ -15,7 +15,7 @@ export function Card({ url, title, timestamp }: { url: string; title: string; ti
         <p className="text-gray-600 text-sm">{date.toLocaleString()}</p>
       </div>
       </div>
-      <div>
+      <div className="absolute top-1 right-1">
       <input
               type="button"
               value="Download QR"

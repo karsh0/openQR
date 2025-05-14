@@ -15,6 +15,7 @@ type CardType = {
 
 export default function Dashboard() {
   const [toggle, setToggle] = useState(false);
+  const [fetch, setFetch] = useState(false);
   const [data, setData] = useState<CardType[] | []>([]);
   const [loading, setLoading] = useState(false)
   const [searchParams] = useSearchParams();
@@ -40,7 +41,7 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, [toggle]);
+  }, [fetch]);
 
   return (
     <div className="flex flex-col min-h-screen w-screen bg-[#0d0d0d] text-white p-8 overflow-y-auto">
@@ -70,7 +71,7 @@ export default function Dashboard() {
       }
 
       </div>
-      {toggle && <Popup setToggle={setToggle} value={value}/>}
+      {toggle && <Popup setToggle={setToggle} setFetch={setFetch}  value={value}/>}
     </div>
   );
 }

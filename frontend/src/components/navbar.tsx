@@ -16,6 +16,11 @@ export function Navbar() {
       fetch()
     },[])
 
+    async function Logout(){
+      const res = await axios.post(`${BACKEND_URL}/logout`,{}, { withCredentials: true })
+      console.log(res.data) 
+    }
+
     return (
     <nav className="bg-[#0d0d0d] text-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -27,7 +32,7 @@ export function Navbar() {
         <div className="relative">
           <button
             onClick={() => setOpen(!open)}
-            className="bg-gray-800 w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold hover:bg-gray-700 transition"
+            className="bg-gray-800 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-white font-semibold hover:bg-gray-700 transition"
           >
             {username[0]}
           </button>
@@ -43,7 +48,10 @@ export function Navbar() {
                     setOpen(!open)}}>
                 My Links</li>
                 <li className="px-3 py-2 hover:bg-red-400 rounded cursor-pointer" onClick={()=>
-                    setOpen(!open)
+                    {
+                      Logout();
+                      setOpen(!open)
+                    }
                 }>Logout</li>
               </ul>
             </div>
