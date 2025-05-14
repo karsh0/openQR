@@ -1,25 +1,29 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Button } from "./button";
 import { Input } from "./input";
 import { X } from 'lucide-react';
 import QRCode from "react-qr-code";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config/config";
 
 type PopupProps = {
-  setToggle: (value: boolean) => void;
+  setToggle: (value: boolean) => void,
+  value: string | null
 };
 
-export function Popup({ setToggle }: PopupProps) {
+export function Popup({ setToggle , value}: PopupProps) {
   const titleRef = useRef<HTMLInputElement | null>(null);
   const customRef = useRef<HTMLInputElement | null>(null);
-  const [url, setUrl] = useState<string>("");
-  const navigate = useNavigate()
-
+  const urlRef = useRef<HTMLInputElement | null>(null)
+  let url = urlRef.current?.value;
+  if(value){
+    url = value
+  }
+  
   async function createQr() {
     const title = titleRef.current?.value;
-    const custom = customRef.current?.value;
+
+    // const custom = customRef.current?.value;
 
     const res = await axios.post(`${BACKEND_URL }/create`,{
       title,
@@ -58,7 +62,7 @@ export function Popup({ setToggle }: PopupProps) {
         type="text"
         placeholder="Long URL"
         value={url}
-        onChange={(e) => setUrl(e.target.value)}
+        ref={urlRef}
         className="w-full p-2 border rounded-md"
       />
 

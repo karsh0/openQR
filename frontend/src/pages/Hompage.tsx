@@ -9,7 +9,7 @@ export default function Homepage() {
 
   const handleGenerate = () => {
     const value = inputRef.current?.value?.trim();
-    if (value) navigate(`/dashboard?create=${encodeURIComponent(value)}`);
+    if (value) navigate(`/dashboard?create=${(value)}`);
   };
 
   return (
@@ -28,7 +28,7 @@ export default function Homepage() {
         <input
           ref={inputRef}
           placeholder="Paste your long URL here..."
-          className="flex-1 bg-transparent border-none text-white placeholder-gray-500 focus:outline-none"
+          className="flex-1 mr-2 bg-transparent border-none text-white placeholder-gray-500 focus:outline-none"
         />
        <div className="max-w-96"> <Button title="Generate QR" onClick={handleGenerate} dark={false} /></div>
       </div>
