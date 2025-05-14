@@ -18,6 +18,10 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 
+app.get('/', (req,res)=>{
+    res.send('backend is running')
+})
+
 app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
     const hashedPassword = await hash(password, 2);
@@ -78,6 +82,8 @@ app.post('/logout',  (req,res)=>{
         message:"logout success"
     })
 })
+
+
 
 app.use('/', middleware, router);
 
