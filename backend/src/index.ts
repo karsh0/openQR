@@ -65,7 +65,7 @@ app.post('/signin', async (req, res) => {
 
     res.cookie('token', token, {
         httpOnly: true,
-        secure: false, // true in production
+        secure: true, // true in production
     });
     
     res.json({
