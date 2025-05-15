@@ -66,8 +66,10 @@ app.post('/signin', async (req, res) => {
 
     res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-    });
+        secure: true,
+        domain: '.fri.is'
+      });
+      
 
     
     res.json({
