@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../components/button";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Homepage() {
   const navigate = useNavigate();
@@ -91,11 +91,6 @@ export default function Homepage() {
                   ))}
                 </div>
               </div>
-
-              <div className="w-30">
-                <Button title="signup" onClick={()=> navigate('/signup')}/>
-              </div>
-
             </div>
   );
 }

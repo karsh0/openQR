@@ -43,6 +43,17 @@ router.get('/generate', async(req,res)=>{
 
 })
 
+router.get('/search', async (req, res) => {
+    const title = req.query.title as string;
+
+    const card = await prismaClient.card.findFirst({
+        where: { title }
+    });
+
+    res.json({ card });
+});
+
+
 
 
 export default router;

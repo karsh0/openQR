@@ -4,28 +4,42 @@ import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config/config";
 
 export function Navbar() {
-    const [open, setOpen] = useState(false);
-    const navigate = useNavigate()
-    const [username, setUsername] = useState('X');
+  const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState("X");
+  const [auth, setAuth] = useState(false);
+  const navigate = useNavigate();
 
-    useEffect(()=>{
-      async function fetch(){
-        const res = await axios.get(`${BACKEND_URL}/user`, {withCredentials: true})
-        setUsername(res.data.username)
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await axios.get(`${BACKEND_URL}/user`, { withCredentials: true });
+        setUsername(res.data.username);
+        setAuth(true);
+      } catch (err) {
+        console.error("User fetch failed", err);
+        setAuth(false);
       }
-      fetch()
-    },[])
-
-    async function Logout(){
-      const res = await axios.post(`${BACKEND_URL}/logout`,{}, { withCredentials: true })
-      console.log(res.data) 
     }
+    fetchUser();
+  }, []);
 
-    return (
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${BACKEND_URL}/logout`, {}, { withCredentials: true });
+      setAuth(false);
+      navigate("/signin");
+    } catch (err) {
+      console.error("Logout error", err);
+    }
+  };
+
+  return (
     <nav className="bg-[#0d0d0d] text-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="text-xl font-semibold tracking-wide flex items-center gap-2">
-          <span className="w-10 "><img src="https://qrcode-online.com/icon.png" alt="" /></span>
+          <span className="w-10">
+            <img src="https://qrcode-online.com/icon.png" alt="Logo" />
+          </span>
           <span className="text-green-500 text-2xl">openQR</span>
         </div>
 
@@ -34,7 +48,7 @@ export function Navbar() {
             onClick={() => setOpen(!open)}
             className="bg-gray-800 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-white font-semibold hover:bg-gray-700 transition"
           >
-            {username[0]}
+            {username[0]?.toUpperCase() || "?"}
           </button>
 
           {open && (
@@ -43,16 +57,24 @@ export function Navbar() {
                 <span className="font-medium">{username}</span>
               </div>
               <ul className="mt-1">
-                <li className="px-3 py-2 hover:bg-gray-700 rounded cursor-pointer" onClick={()=>{
-                    navigate('/dashboard') 
-                    setOpen(!open)}}>
-                My Links</li>
-                <li className="px-3 py-2 hover:bg-red-400 rounded cursor-pointer" onClick={()=>
-                    {
-                      Logout();
-                      setOpen(!open)
-                    }
-                }>Logout</li>
+                <li
+                  className="px-3 py-2 hover:bg-gray-700 rounded cursor-pointer"
+                  onClick={() => {
+                    setOpen(false);
+                    navigate(auth ? "/dashboard" : "/signup");
+                  }}
+                >
+                  My Links
+                </li>
+                <li
+                  className="px-3 py-2 hover:bg-red-400 rounded cursor-pointer"
+                  onClick={() => {
+                    setOpen(false);
+                    handleLogout();
+                  }}
+                >
+                  Logout
+                </li>
               </ul>
             </div>
           )}
