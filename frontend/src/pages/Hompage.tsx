@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../components/button";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 export default function Homepage() {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ export default function Homepage() {
 
   return (
     <div className="min-h-screen w-screen bg-[#0d0d0d] text-white flex flex-col items-center justify-center px-6 py-12">
-      
       <div className="max-w-2xl text-center space-y-4 mb-10">
         <h1 className="text-4xl sm:text-5xl font-bold">
           Make your links <span className="text-gray-400">stand out</span>
@@ -92,6 +91,11 @@ export default function Homepage() {
                   ))}
                 </div>
               </div>
+
+              <div className="w-30">
+                <Button title="signup" onClick={()=> navigate('/signup')}/>
+              </div>
+
             </div>
   );
 }
