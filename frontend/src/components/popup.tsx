@@ -16,7 +16,7 @@ type PopupProps = {
 export function Popup({ setToggle, setFetch, value }: PopupProps) {
   const titleRef = useRef<HTMLInputElement | null>(null);
   const customRef = useRef<HTMLInputElement | null>(null);
-  const [url, setUrl] = useState(value || ""); // controlled input
+  const [url, setUrl] = useState(value || "");
   const navigate = useNavigate();
 
   async function createQr() {
@@ -39,7 +39,7 @@ export function Popup({ setToggle, setFetch, value }: PopupProps) {
   }
 
   return (
-    <div className="bg-white text-black p-6 rounded-2xl shadow-xl w-80 md:w-96 flex flex-col gap-4 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div className="bg-white text-black border border-gray-100 p-6 rounded-2xl shadow-xl w-80 md:w-96 flex flex-col gap-4 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <X
         className="absolute right-4 top-4 cursor-pointer"
         onClick={() => setToggle(false)}
@@ -66,7 +66,7 @@ export function Popup({ setToggle, setFetch, value }: PopupProps) {
         placeholder="Long URL"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        className="w-full p-2 border rounded-md"
+        className="w-full p-2 px-4 border border-gray-400 rounded-md"
       />
 
       <div className="w-full flex gap-2">

@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../components/button";
 import { useNavigate } from "react-router-dom";
+import { AboutArray } from "../config/data";
 
 export default function Homepage() {
   const navigate = useNavigate();
@@ -13,80 +14,43 @@ export default function Homepage() {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-[#0d0d0d] text-white flex flex-col items-center justify-center px-6 py-12">
-      <div className="max-w-2xl text-center space-y-4 mb-10">
-        <h1 className="text-4xl sm:text-5xl font-bold">
-          Make your links <span className="text-gray-400">stand out</span>
+    <div className="min-h-screen w-screen flex flex-col items-center justify-center px-5 py-16 md:px-50 md:py-8 mt-8">
+      <div className="max-w-3xl text-center space-y-4 mb-10">
+        <button className="text-blue-600 bg-blue-100 rounded-lg p-2 md:px-3 md:py-2 cursor-pointer hover:shadow hover:bg-blue-200 transition font-semibold text-xs">Welcome to openQR</button>
+        <h1 className="text-4xl sm:text-6xl font-bold">
+          Make your links <span className="text-blue-600">stand out</span>
         </h1>
-        <p className="text-gray-400 text-xl">
-          Transform long, complex URLs into simple, memorable QR codes for easy sharing and tracking.
+        <p className="text-gray-600 text-sm md:text-xl">
+        Easily transform long, cluttered URLs into clean, memorable QR codes that are perfect for sharing across digital and print platforms.
         </p>
       </div>
 
-      <div className="flex w-full max-w-xl items-center bg-[#1a1a1a] p-2 md:px-4 md:py-2 rounded-xl shadow-md mb-5 md:mb-16">
+      <div className="flex w-full max-w-xl items-center p-2 md:px-4 md:py-2 rounded-xl shadow-md mb-5 md:mb-16">
         <input
           ref={inputRef}
           placeholder="Paste your long URL here..."
-          className="flex-1 mr-2 bg-transparent border-none text-white placeholder-gray-500 focus:outline-none"
+          className="flex-1 text-sm mr-2 bg-transparent border-none text-black placeholder-gray-500 focus:outline-none"
         />
-       <div className="max-w-96 text-sm md:text:lg"> <Button title="Generate QR" onClick={handleGenerate} dark={false} /></div>
+       <div className="max-w-96 text-sm md:text:lg"> <Button title="Generate QR"  onClick={handleGenerate} dark={true} /></div>
       </div>
 
-      <div className="mt-20 max-w-7xl w-full">
-        <h2 className="text-center text-3xl font-semibold mb-6">Why choose this platform?</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-              {
-                title: "Fast Creation",
-                desc: "Shorten links and generate QR codes instantly.",
-                icon: "⚡️",
-              },
-              {
-                title: "Real-Time Analytics",
-                desc: "Track clicks, devices, and locations live.",
-                icon: "📊",
-              },
-              {
-                title: "Secure Links",
-                desc: "Your data stays encrypted and private.",
-                icon: "🔒",
-              },
-              {
-                title: "Custom Domains",
-                desc: "Use branded URLs with custom aliases.",
-                icon: "✨",
-              },
-              {
-                title: "Auto QR Codes",
-                desc: "Every short link gets a clean QR code.",
-                icon: "🔲",
-              },
-              {
-                title: "Team Access",
-                desc: "Work together with shared link control.",
-                icon: "👥",
-              },
-              {
-                title: "Developer API",
-                desc: "Integrate links into your own tools.",
-                icon: "</>",
-              },
-              {
-                title: "Brand Styling",
-                desc: "Add your logo and brand colors easily.",
-                icon: "⭐",
-              }
-          ].map((feature, index) => (
+      <div className="mt-20 w-full text-center">
+        <h2 className="text-center text-2xl md:text-3xl font-bold mb-2">How <span className="text-blue-600">openQR</span> AI Works
+        </h2>
+        <p className="text-gray-600 text-sm md:text-lg mb-14">Our platform is designed to simplify link management.</p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {AboutArray.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-[#1c1c1c] rounded-xl p-7 text-center shadow-sm hover:shadow-lg transition-all"
+              className="relative flex flex-col gap-5 rounded-xl p-10 pt-10 mb-10 md:mb-2 md:pt-20 text-center border border-gray-100 shadow-sm hover:shadow-lg transition-all cursor-pointer"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
             >
-              <div className="text-4xl mb-3">{feature.icon}</div>
-              <h3 className="text-2xl font-bold mb-1">{feature.title}</h3>
-              <p className="text-md text-gray-400">{feature.desc}</p>
+              <div className="text-4xl bg-blue-600 p-4 md:p-6 rounded-full text-white shadow absolute top-[-30px] left-1/2 transform -translate-x-1/2">{feature.icon}</div>
+              <h3 className="text-xl text-blue-600 font-bold mb-1">{feature.title}</h3>
+              <p className="text-sm md:text-lg  text-gray-600">{feature.desc}</p>
             </motion.div>
                   ))}
                 </div>

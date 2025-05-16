@@ -8,9 +8,11 @@ import { Navbar } from './components/navbar';
 
 function App() {
   return (
-    <div className="bg-black min-h-screen text-white overflow-hidden">
+    <div className=" min-h-screen w-full text-black overflow-hidden relative">
       <BrowserRouter>
-        <Navbar />
+      <div className='fixed backdrop-blur-md top-0 w-full z-10'>
+        <Navbar/>
+      </div>
         <Routes>
           <Route path='/' element={<Homepage />} />
           <Route path='/signup' element={<Signup />} />

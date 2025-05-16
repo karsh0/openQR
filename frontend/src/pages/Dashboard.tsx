@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "../components/button";
 import { Popup } from "../components/popup";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
@@ -9,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { SearchBox } from "../components/searchBox";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { QrCode } from "lucide-react";
 
 type CardType = {
   link: string,
@@ -52,56 +52,67 @@ export default function Dashboard() {
     ? data.filter((x) => x.title.toLowerCase().includes(title.toLowerCase()))
     : data;
 
-  return (
-    <div className="flex flex-col min-h-screen w-screen bg-[#0d0d0d] text-white p-6 md:p-8 overflow-y-auto">
-      <div className="max-w-7xl mx-auto w-full space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl md:text-4xl font-bold">Dashboard</h1>
-        </div>
-
-        <div className="flex flex-col md:flex-row justify-between border-b border-white/10 pb-2">
-        <h2 className="text-xl font-semibold ">Your QR Collections</h2>
-          <div className="flex gap-2 h-9 md:h-max max-w-xl md:max-w-2xl">
-            <SearchBox setTitle={setTitle} />
-            <button
-          className={`p-2 w-30 text-sm md:text-lg md:px-3 md:py-3 cursor-pointer rounded-xl bg-white text-black `}
-          onClick={() => setToggle(!toggle)}
-        >Create new link</button> 
-          </div>
-        </div>
-        
-        {loading ? (
-           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-           {Array.from({ length: 6 }).map((_, i) => (
-             <div key={i}>
-               <Skeleton
-                 baseColor="#1a1a1a"
-                 highlightColor="#333"
-                 height={140}
-                 borderRadius={12}
-               />
-             </div>
-           ))}
-         </div>
-        ) : (
-          <div className="space-y-4">            
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {filteredArray.map((x, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
-                >
-                  <Card url={x.link} title={x.title} timestamp={x.timestamp} />
-                </motion.div>
-              ))}
-            </div>
+    return (
+      <div className="relative flex flex-col min-h-screen w-screen mt-10 md:mt-15  overflow-y-auto">
+        {toggle && (
+          <div className="fixed inset-0 z-10 backdrop-blur-xs bg-white/30 flex items-center justify-center">
+            <Popup setToggle={setToggle} setFetch={setFetch} value={value} />
           </div>
         )}
+    
+        <div className={`z-0 px-4 md:px-8 py-12 transition-all duration-300 ${toggle ? 'blur-sm pointer-events-none' : ''}`}>
+          <div className="max-w-7xl mx-auto w-full space-y-6">
+            <div className="flex items-center justify-between">
+              <h1 className="text-2xl md:text-4xl text-gray-800 font-bold">Dashboard</h1>
+            </div>
+    
+            <div className="flex flex-col md:flex-row justify-between border-b border-gray-200 pb-4">
+              <h2 className="text-xl font-semibold flex gap-2 items-center text-blue-600">
+                <QrCode /> Your QR Collections
+              </h2>
+              <div className="flex gap-2 max-h-9 mt-4 md:mt-0 md:max-h-12 md:h-max max-w-xl md:max-w-3xl">
+                <SearchBox setTitle={setTitle} />
+                <button
+                  className="p-2 w-30 md:w-max text-sm md:text-lg md:px-3 md:py-3 cursor-pointer rounded-xl bg-blue-600 text-white"
+                  onClick={() => setToggle(!toggle)}
+                >
+                  Create new
+                </button>
+              </div>
+            </div>
+    
+            {loading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i}>
+                    <Skeleton
+                      baseColor="#1a1a1a"
+                      highlightColor="#333"
+                      height={140}
+                      borderRadius={12}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {filteredArray.map((x, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
+                    >
+                      <Card url={x.link} title={x.title} timestamp={x.timestamp} />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-
-      {toggle && <Popup setToggle={setToggle} setFetch={setFetch} value={value} />}
-    </div>
-  );
+    );
+    
 }

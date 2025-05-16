@@ -12,7 +12,11 @@ export default function Signin() {
 
   const handleSignin = async () => {
     try {
-      const res = await axios.post(`${BACKEND_URL}/signin`, { username, password },{ withCredentials: true});
+      const res = await axios.post(
+        `${BACKEND_URL}/signin`,
+        { username, password },
+        { withCredentials: true }
+      );
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
@@ -21,15 +25,61 @@ export default function Signin() {
   };
 
   return (
-    <div className="bg-[#0d0d0d] text-white h-screen flex items-center justify-center">
-      <div className="bg-white text-black p-8 rounded-xl flex flex-col gap-4 w-80">
-        <h2 className="text-xl font-bold">Sign In</h2>
-        <Input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button title="Sign In" onClick={handleSignin} dark />
-        <p className="text-center text-sm">
-          Don’t have an account? <span className="text-purple-600 hover:underline cursor-pointer" onClick={() => navigate("/signup")}>Sign Up</span>
-        </p>
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+      <div className="flex flex-col md:flex-row w-full max-w-6xl shadow-xl bg-white rounded-3xl overflow-hidden">
+        
+        <div className="w-full md:w-1/2 p-10 md:p-16">
+          <div className="mb-6">
+            <img
+              src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_425ddb607e85f91b24ff371f81faab44/qrfy.png"
+              alt="Logo"
+              className="h-8"
+            />
+          </div>
+
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+          <p className="text-gray-500 mb-6">Enter your credentials to sign in</p>
+
+          <div className="space-y-4">
+            <Input
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="text-right mt-2 mb-6">
+            <span className="text-blue-600 text-sm cursor-pointer underline">Forgot password?</span>
+          </div>
+
+          <Button title="Sign In" dark onClick={handleSignin} />
+
+          <p className="mt-6 text-sm text-gray-600 text-center">
+            Don’t have an account?{" "}
+            <span
+              className="text-blue-600 cursor-pointer underline"
+              onClick={() => navigate("/signup")}
+            >
+              Sign up
+            </span>
+          </p>
+        </div>
+
+        <div className="md:flex w-1/2 bg-blue-600 text-white items-center justify-center p-10 relative">
+          <div className="max-w-md">
+            <h3 className="text-2xl font-semibold mb-4">The simplest way to manage your links</h3>
+            <img
+              src="https://cdni.iconscout.com/illustration/premium/thumb/mobile-payment-illustration-download-in-svg-png-gif-file-formats--barcode-scanner-scanning-app-code-money-transfer-qr-for-online-pack-science-technology-illustrations-3749042.png"
+              alt="Signin illustration"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
