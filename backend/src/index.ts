@@ -10,9 +10,12 @@ import cookieParser from 'cookie-parser';
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
-  
-
+app.use(cors({
+    origin: ["http://localhost:5173/", "https://openqr-oayn.onrender.com/"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Authorization", "Content-Type"]
+  })); 
 app.use(cookieParser());
 app.use(express.json());
 
