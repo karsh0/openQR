@@ -5,10 +5,10 @@ yarn-debug.log
 yarn-error.log
 
 # Build directories
-/dist
+# /dist
 .env
-dist/
-/build
+# dist/
+# /build
 
 # Environment variables
 .env
@@ -36,3 +36,4 @@ prisma/generated/
 # Jest test coverage
 coverage/
 ``
+.vercel

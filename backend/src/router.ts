@@ -53,6 +53,18 @@ router.get('/search', async (req, res) => {
     res.json({ card });
 });
 
+router.post('/delete', async (req, res) => {
+    const { id } = req.body;
+
+    await prismaClient.card.delete({
+        where: { id }
+    });
+
+    res.json({
+        message:"card deleted"
+    })
+});
+
 
 
 
