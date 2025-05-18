@@ -21,16 +21,17 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 p-10 md:p-4">
       <div className="flex flex-col md:flex-row w-full max-w-6xl shadow-xl bg-white rounded-3xl overflow-hidden">
         
-        <div className="w-full md:w-1/2 p-10 md:p-16">
+        <div className="w-full md:w-1/2 p-8 md:p-16">
           <div className="mb-6">
             <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_425ddb607e85f91b24ff371f81faab44/qrfy.png" alt="Logo" className="h-8" />
           </div>
 
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Get Started Now</h2>
-          <p className="text-gray-500 mb-6">Enter your credentials to access your account</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Get Started Now</h2>
+          <p className="text-sm md:text-lg text-gray-500 mb-6">Enter your credentials to access your account</p>
+          
           {/* <img src="https://cdn.document360.io/b5cf4edd-8d9e-4649-a50a-2d7591eba26b/Images/Documentation/CleanShot_2023-11-06_at_10.32.52_2x-removebg-preview.png" alt="Google" className="w-70" />
 
           <div className="relative mb-6">
@@ -68,7 +69,7 @@ export default function Signup() {
           </p>
         </div>
 
-        <div className="md:flex w-1/2 bg-blue-600 text-white items-center justify-center p-10 relative">
+        <div className="hidden md:flex w-1/2 bg-blue-600 text-white items-center justify-center p-10 relative">
           <div className="max-w-md">
             <h3 className="text-2xl font-semibold mb-4">The simplest way to manage your links</h3>
             <img src="https://cdni.iconscout.com/illustration/premium/thumb/mobile-payment-illustration-download-in-svg-png-gif-file-formats--barcode-scanner-scanning-app-code-money-transfer-qr-for-online-pack-science-technology-illustrations-3749042.png" alt="Dashboard preview"  />

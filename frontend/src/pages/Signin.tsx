@@ -25,10 +25,10 @@ export default function Signin() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 p-10 md:p-4">
       <div className="flex flex-col md:flex-row w-full max-w-6xl shadow-xl bg-white rounded-3xl overflow-hidden">
         
-        <div className="w-full md:w-1/2 p-10 md:p-16">
+        <div className="w-full md:w-1/2 p-8 md:p-16">
           <div className="mb-6">
             <img
               src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_425ddb607e85f91b24ff371f81faab44/qrfy.png"
@@ -37,8 +37,8 @@ export default function Signin() {
             />
           </div>
 
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
-          <p className="text-gray-500 mb-6">Enter your credentials to sign in</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+          <p className="text-sm md:text-lg text-gray-500 mb-6">Enter your credentials to sign in</p>
 
           <div className="space-y-4">
             <Input
@@ -71,7 +71,7 @@ export default function Signin() {
           </p>
         </div>
 
-        <div className="md:flex w-1/2 bg-blue-600 text-white items-center justify-center p-10 relative">
+        <div className="hidden md:flex w-1/2 bg-blue-600 text-white items-center justify-center p-10 relative">
           <div className="max-w-md">
             <h3 className="text-2xl font-semibold mb-4">The simplest way to manage your links</h3>
             <img
