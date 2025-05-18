@@ -11,7 +11,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-    origin: 'https://open-qr.vercel.app/',
+    origin: 'https://openqr-oayn.onrender.com/',
     credentials: true
   }));
   

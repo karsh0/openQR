@@ -25,10 +25,10 @@ export default function Signin() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 p-10 md:p-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 p-6 md:p-4">
       <div className="flex flex-col md:flex-row w-full max-w-6xl shadow-xl bg-white rounded-3xl overflow-hidden">
         
-        <div className="w-full md:w-1/2 p-8 md:p-16">
+        <div className="w-full md:w-1/2 p-6 md:p-16">
           <div className="mb-6">
             <img
               src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_425ddb607e85f91b24ff371f81faab44/qrfy.png"

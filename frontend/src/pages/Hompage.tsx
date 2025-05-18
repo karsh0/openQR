@@ -14,7 +14,7 @@ export default function Homepage() {
   };
 
   return (
-    <div className="min-h-screen w-screen flex flex-col items-center justify-center px-5 py-16 md:px-50 md:py-8 mt-8">
+    <div className="min-h-screen w-screen flex flex-col items-center justify-center px-5 py-16 md:px-50 md:py-24 mt-8 md:mt-15">
       <div className="max-w-3xl text-center space-y-4 mb-10">
         <button className="text-blue-600 bg-blue-100 rounded-lg p-2 md:px-3 md:py-2 cursor-pointer hover:shadow hover:bg-blue-200 transition font-semibold text-xs">Welcome to openQR</button>
         <h1 className="text-4xl sm:text-6xl font-bold">
@@ -25,11 +25,11 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className="flex w-full max-w-xl items-center p-2 md:px-4 md:py-2 rounded-xl shadow-md mb-5 md:mb-16">
+      <div className="flex w-full max-w-xl items-center p-2 md:px-4 md:py-2 rounded-xl shadow-sm mb-5 md:mb-16 border border-gray-100">
         <input
           ref={inputRef}
           placeholder="Paste your long URL here..."
-          className="flex-1 text-sm mr-2 bg-transparent border-none text-black placeholder-gray-500 focus:outline-none"
+          className="flex-1 text-sm md:text-lg mr-2 bg-transparent border-none text-black placeholder-gray-500 focus:outline-none"
         />
        <div className="max-w-96 text-sm md:text:lg"> <Button title="Generate QR"  onClick={handleGenerate} dark={true} /></div>
       </div>

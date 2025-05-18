@@ -11,6 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { QrCode } from "lucide-react";
 
 type CardType = {
+  id: number,
   link: string,
   title: string,
   timestamp: string
@@ -82,7 +83,7 @@ export default function Dashboard() {
             </div>
     
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div key={i}>
                     <Skeleton
@@ -96,7 +97,7 @@ export default function Dashboard() {
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
                   {filteredArray.map((x, i) => (
                     <motion.div
                       key={i}
@@ -104,7 +105,7 @@ export default function Dashboard() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
                     >
-                      <Card url={x.link} title={x.title} timestamp={x.timestamp} />
+                      <Card id={x.id} url={x.link} title={x.title} timestamp={x.timestamp} setFetch={setFetch}/>
                     </motion.div>
                   ))}
                 </div>
