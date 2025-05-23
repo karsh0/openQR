@@ -4,7 +4,7 @@ import { Button } from "../components/button";
 import { useNavigate } from "react-router-dom";
 import { AboutArray } from "../config/data";
 
-export default function Homepage({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void }) {
+export default function Homepage({auth}:{auth:boolean}) {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
 

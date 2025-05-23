@@ -16,7 +16,7 @@ function App() {
         <Navbar auth={auth} setAuth={setAuth}/>
       </div>
         <Routes>
-          <Route path='/' element={<Homepage  auth={auth} setAuth={setAuth}/>} />
+          <Route path='/' element={<Homepage  auth={auth}/>} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/dashboard' element={<Dashboard/>}/>
