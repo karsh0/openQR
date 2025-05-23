@@ -12,12 +12,12 @@ export default function Signin() {
 
   const handleSignin = async () => {
     try {
-      const res = await axios.post(
+      await axios.post(
         `${BACKEND_URL}/signin`,
         { username, password },
         { withCredentials: true }
       );
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user","validated");
       navigate("/dashboard");
     } catch (err) {
       console.error("Signin error:", err);

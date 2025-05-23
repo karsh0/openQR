@@ -3,10 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config/config";
 
-export function Navbar() {
+export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void }) {
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("X");
-  const [auth, setAuth] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
 

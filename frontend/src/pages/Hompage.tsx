@@ -4,13 +4,19 @@ import { Button } from "../components/button";
 import { useNavigate } from "react-router-dom";
 import { AboutArray } from "../config/data";
 
-export default function Homepage() {
+export default function Homepage({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void }) {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleGenerate = () => {
     const value = inputRef.current?.value?.trim();
-    if (value) navigate(`/dashboard?create=${(value)}`);
+
+    if(!auth){
+      navigate('/signup');
+    }
+    if(auth && value){
+      navigate(`/dashboard?create=${(value)}`);
+    }
   };
 
   return (
