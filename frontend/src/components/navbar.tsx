@@ -21,7 +21,7 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
       }
     }
     fetchUser();
-  }, []);
+  }, [auth]);
 
   // Close popup if click is outside
   useEffect(() => {
@@ -45,6 +45,7 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
   const handleLogout = async () => {
     try {
       await axios.post(`${BACKEND_URL}/logout`, {}, { withCredentials: true });
+      setUsername('X');
       setAuth(false);
       navigate("/signin");
     } catch (err) {
@@ -97,7 +98,7 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
                 >
                   My Links
                 </li>
-                <li
+               {auth ? <li
                   className="px-3 py-2 hover:bg-red-400 rounded cursor-pointer"
                   onClick={() => {
                     setOpen(false);
@@ -105,7 +106,15 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
                   }}
                 >
                   Logout
-                </li>
+                </li> : 
+                <li
+                  className="px-3 py-2 hover:bg-red-400 rounded cursor-pointer"
+                  onClick={() => {
+                    navigate('/signup')
+                  }}
+                >
+                  Signup
+                </li>}
               </ul>
             </div>
           )}

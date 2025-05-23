@@ -4,7 +4,7 @@ import { Copy, Trash } from "lucide-react";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
 
-export function Card({id, url, title, timestamp, setFetch}: {id: number, url: string; title: string; timestamp: string, setFetch: (x:boolean) => void }) {
+export function Card({id, url, title, timestamp, fetch, setFetch}: {id: number, url: string; title: string; timestamp: string, fetch:boolean, setFetch: (x:boolean) => void }) {
   const date = new Date(timestamp)
 
   function CopyClipboard(){
@@ -15,7 +15,7 @@ export function Card({id, url, title, timestamp, setFetch}: {id: number, url: st
 
   async function DeleteCard(){
     const res = await axios.post(`${BACKEND_URL}/delete`, {id}, {withCredentials: true});
-    setFetch(true)
+    setFetch(!fetch)
     console.log(res)
   }
 

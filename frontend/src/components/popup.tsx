@@ -9,11 +9,12 @@ import { useNavigate } from "react-router-dom";
 
 type PopupProps = {
   setToggle: (value: boolean) => void;
+  fetch: boolean;
   setFetch: (value: boolean) => void;
   value: string | null;
 };
 
-export function Popup({ setToggle, setFetch, value }: PopupProps) {
+export function Popup({ setToggle, fetch, setFetch, value }: PopupProps) {
   const titleRef = useRef<HTMLInputElement | null>(null);
   const customRef = useRef<HTMLInputElement | null>(null);
   const [url, setUrl] = useState(value || "");
@@ -34,7 +35,7 @@ export function Popup({ setToggle, setFetch, value }: PopupProps) {
     );
     console.log(res);
     setToggle(false);
-    setFetch(true);
+    setFetch(!fetch);
     navigate("/dashboard");
   }
 

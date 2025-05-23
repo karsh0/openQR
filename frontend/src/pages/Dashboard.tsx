@@ -57,7 +57,7 @@ export default function Dashboard() {
       <div className="relative flex flex-col min-h-screen w-screen mt-10 md:mt-15  overflow-y-auto">
         {toggle && (
           <div className="fixed inset-0 z-10 backdrop-blur-xs bg-white/30 flex items-center justify-center">
-            <Popup setToggle={setToggle} setFetch={setFetch} value={value} />
+            <Popup setToggle={setToggle} fetch={fetch} setFetch={setFetch} value={value} />
           </div>
         )}
     
@@ -105,7 +105,7 @@ export default function Dashboard() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
                     >
-                      <Card id={x.id} url={x.link} title={x.title} timestamp={x.timestamp} setFetch={setFetch}/>
+                      <Card id={x.id} url={x.link} title={x.title} timestamp={x.timestamp} fetch={fetch} setFetch={setFetch}/>
                     </motion.div>
                   ))}
                 </div>
