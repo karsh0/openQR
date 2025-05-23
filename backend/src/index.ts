@@ -64,12 +64,14 @@ app.post('/signin', async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET ?? "");
-
+    
+    const isProd = process.env.NODE_ENV === "production";
+    
     res.cookie('token', token, {
-        httpOnly: true,
-        secure: false,
-      });
-      
+      httpOnly: true,
+      secure: isProd,              // required for HTTPS
+      sameSite: isProd ? 'none' : 'lax', // required for cross-origin
+    });
 
     
     res.json({
