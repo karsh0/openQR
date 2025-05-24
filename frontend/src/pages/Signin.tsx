@@ -5,20 +5,22 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
 
-export default function Signin() {
+export default function Signin({setAuth}:{setAuth: (x:boolean)=> void}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSignin = async () => {
     try {
-      await axios.post(
+      const res = await axios.post(
         `${BACKEND_URL}/signin`,
         { username, password },
         { withCredentials: true }
       );
-      localStorage.setItem("user","validated");
-      navigate("/dashboard");
+      if(res.data.token){
+        setAuth(true)
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.error("Signin error:", err);
     }

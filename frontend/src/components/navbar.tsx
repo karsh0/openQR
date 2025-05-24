@@ -5,7 +5,7 @@ import { BACKEND_URL } from "../config/config";
 
 export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void }) {
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState("X");
+  const [username, setUsername] = useState<string>('');
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -45,9 +45,9 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
   const handleLogout = async () => {
     try {
       await axios.post(`${BACKEND_URL}/logout`, {}, { withCredentials: true });
-      setUsername('X');
+      setUsername('');
       setAuth(false);
-      navigate("/signin");
+      navigate("/");
     } catch (err) {
       console.error("Logout error", err);
     }
@@ -69,6 +69,7 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
           <span className="text-blue-600 text-xl">openQR</span>
         </div>
 
+        {auth ?  
         <div className="relative" ref={dropdownRef}>
           <div
             className="flex gap-4 items-center hover:bg-blue-50 transition ease-out px-4 py-1 rounded-lg"
@@ -118,7 +119,16 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
               </ul>
             </div>
           )}
-        </div>
+        </div> 
+        :
+          <button
+          onClick={()=> navigate('/signin')} 
+          className="bg-blue-600 hover:bg-blue-500 md:text-sm text-xs px-4 py-2 md:px-5 md:py-2 rounded-lg cursor-pointer flex items-center justify-center text-white font-semibold">
+              Login
+          </button>
+        
+        }
+
       </div>
     </nav>
   );
