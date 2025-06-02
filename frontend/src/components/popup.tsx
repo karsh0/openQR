@@ -5,7 +5,8 @@ import { X } from "lucide-react";
 import QRCode from "react-qr-code";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 type PopupProps = {
   setToggle: (value: boolean) => void;
@@ -19,20 +20,25 @@ export function Popup({ setToggle, fetch, setFetch, value }: PopupProps) {
   const customRef = useRef<HTMLInputElement | null>(null);
   const [url, setUrl] = useState(value || "");
   const navigate = useNavigate();
+  const { getToken }  = useAuth()
+
 
   async function createQr() {
     const title = titleRef.current?.value;
+        const token = await getToken()
 
-    const res = await axios.post(
-      `${BACKEND_URL}/create`,
+    const res = await axios.post(`${BACKEND_URL}/create`, {
+          title,
+          link: url,
+        }, 
       {
-        title,
-        link: url,
-      },
-      {
-        withCredentials: true,
+          headers: {
+          Authorization: `Bearer ${token}`
+          },
+        withCredentials: true
       }
-    );
+);
+
     console.log(res);
     setToggle(false);
     setFetch(!fetch);

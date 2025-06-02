@@ -1,6 +1,6 @@
 type ButtonProps = {
     title: string;
-    onClick: () => void;
+    onClick?: () => void;
     dark?: boolean;
   };
   

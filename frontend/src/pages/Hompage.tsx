@@ -3,18 +3,18 @@ import { motion } from "framer-motion";
 import { Button } from "../components/button";
 import { useNavigate } from "react-router-dom";
 import { AboutArray } from "../config/data";
+import { useAuth } from "../hooks/useAuth";
 
-export default function Homepage({auth}:{auth:boolean}) {
+export default function Homepage() {
   const navigate = useNavigate();
+  const { getToken } = useAuth()
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
+    const token = await getToken()
     const value = inputRef.current?.value?.trim();
 
-    if(!auth){
-      navigate('/signup');
-    }
-    if(auth && value){
+    if(token && value){
       navigate(`/dashboard?create=${(value)}`);
     }
   };
@@ -35,9 +35,9 @@ export default function Homepage({auth}:{auth:boolean}) {
         <input
           ref={inputRef}
           placeholder="Paste your long URL here..."
-          className="flex-1 text-sm md:text-lg mr-2 bg-transparent border-none text-black placeholder-gray-500 focus:outline-none"
+          className="flex-1 text-sm md:text-lg mr-2 border-none bg-white text-black placeholder-gray-500 focus:outline-none"
         />
-       <div className="max-w-96 text-sm md:text:lg"> <Button title="Generate QR"  onClick={handleGenerate} dark={true} /></div>
+       <div className="max-w-96 text-sm md:text:lg"> <Button title="Generate QR" onClick={handleGenerate}  dark={true} /></div>
       </div>
 
       <div className="mt-20 w-full text-center">

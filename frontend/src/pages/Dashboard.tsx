@@ -9,6 +9,7 @@ import { SearchBox } from "../components/searchBox";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { QrCode } from "lucide-react";
+import { useAuth } from "@clerk/clerk-react";
 
 type CardType = {
   id: number,
@@ -32,11 +33,22 @@ export default function Dashboard() {
     }
   }, []);
 
+  const { getToken } = useAuth() 
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = await getToken()
+        console.log(token)
         setLoading(true);
-        const res = await axios.get(`${BACKEND_URL}/generate`, { withCredentials: true });
+        const res = await axios.get(`${BACKEND_URL}/generate`,{
+          headers:{
+            Authorization: `Bearer ${token}`
+          }, 
+          withCredentials: true });
+
+        
         setData(res.data.card);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -52,6 +64,8 @@ export default function Dashboard() {
   title?.trim() && title.length > 0
     ? data.filter((x) => x.title.toLowerCase().includes(title.toLowerCase()))
     : data;
+
+
 
     return (
       <div className="relative flex flex-col min-h-screen w-screen mt-10 md:mt-15  overflow-y-auto">

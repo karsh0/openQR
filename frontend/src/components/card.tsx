@@ -3,18 +3,26 @@ import { Download } from "./download";
 import { Copy, Trash } from "lucide-react";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
+import { useAuth } from "../hooks/useAuth";
 
 export function Card({id, url, title, timestamp, fetch, setFetch}: {id: number, url: string; title: string; timestamp: string, fetch:boolean, setFetch: (x:boolean) => void }) {
   const date = new Date(timestamp)
-
+  const { getToken } = useAuth()
+  
   function CopyClipboard(){
     console.log('copy')
-
+    
     navigator.clipboard.writeText(url);
   }
-
+  
   async function DeleteCard(){
-    const res = await axios.post(`${BACKEND_URL}/delete`, {id}, {withCredentials: true});
+    const token = await getToken()
+    const res = await axios.post(`${BACKEND_URL}/delete`, {id},  {
+          headers: {
+          Authorization: `Bearer ${token}`
+          },
+        withCredentials: true
+      });
     setFetch(!fetch)
     console.log(res)
   }

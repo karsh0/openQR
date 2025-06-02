@@ -1,57 +1,10 @@
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../config/config";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { Link, useNavigate } from "react-router-dom";
 
-export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void }) {
-  const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState<string>('');
-  const navigate = useNavigate();
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await axios.get(`${BACKEND_URL}/user`, { withCredentials: true });
-        setUsername(res.data.username);
-        setAuth(true);
-      } catch (err) {
-        console.error("User fetch failed", err);
-        setAuth(false);
-      }
-    }
-    fetchUser();
-  }, [auth]);
+export function Navbar() {
 
-  // Close popup if click is outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [open]);
-
-  const handleLogout = async () => {
-    try {
-      await axios.post(`${BACKEND_URL}/logout`, {}, { withCredentials: true });
-      setUsername('');
-      setAuth(false);
-      navigate("/");
-    } catch (err) {
-      console.error("Logout error", err);
-    }
-  };
+  const navigate = useNavigate()
 
   return (
     <nav className="max-h-15 w-full">
@@ -69,66 +22,24 @@ export function Navbar({auth, setAuth}:{auth:boolean, setAuth:(x:boolean)=>void 
           <span className="text-blue-600 text-xl">openQR</span>
         </div>
 
-        {auth ?  
-        <div className="relative" ref={dropdownRef}>
-          <div
-            className="flex gap-4 items-center hover:bg-blue-50 transition ease-out px-4 py-1 rounded-lg"
-            onClick={() => setOpen(!open)}
-          >
-            <button className="bg-blue-600 text-xs w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white font-semibold">
-              {username[0]?.toUpperCase() || "?"}
-            </button>
-            <span className="font-semibold">{username}</span>
-          </div>
-
-          {open && (
-            <div className="absolute right-0 mt-2 w-40 bg-gray-700 text-white rounded-lg shadow-lg p-2 z-50">
-              <div className="flex gap-4 items-center px-3 py-2 border-b border-gray-500">
-                <button className="bg-blue-600 text-xs w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white font-semibold">
-                  {username[0]?.toUpperCase() || "?"}
-                </button>
-                <span className="font-medium">{username}</span>
-              </div>
-              <ul className="mt-1">
-                <li
-                  className="px-3 py-2 hover:bg-blue-500 rounded cursor-pointer"
-                  onClick={() => {
-                    setOpen(false);
-                    navigate(auth ? "/dashboard" : "/signup");
-                  }}
-                >
-                  My Links
-                </li>
-               {auth ? <li
-                  className="px-3 py-2 hover:bg-red-400 rounded cursor-pointer"
-                  onClick={() => {
-                    setOpen(false);
-                    handleLogout();
-                  }}
-                >
-                  Logout
-                </li> : 
-                <li
-                  className="px-3 py-2 hover:bg-red-400 rounded cursor-pointer"
-                  onClick={() => {
-                    navigate('/signup')
-                  }}
-                >
-                  Signup
-                </li>}
-              </ul>
-            </div>
-          )}
-        </div> 
-        :
-          <button
-          onClick={()=> navigate('/signin')} 
-          className="bg-blue-600 hover:bg-blue-500 md:text-sm text-xs px-4 py-2 md:px-5 md:py-2 rounded-lg cursor-pointer flex items-center justify-center text-white font-semibold">
-              Login
-          </button>
+        <div className="flex items-center space-x-4">
+          <SignedIn>
+          <Link className="mr-10" to={'/dashboard'}>
+            Dashboard
+          </Link>
+          </SignedIn>
+           <SignedOut>
+             <SignInButton>
+               <button className="bg-blue-600 hover:bg-blue-500 md:text-sm text-xs px-4 py-2 md:px-5 md:py-2 rounded-lg cursor-pointer flex items-center justify-center text-white font-semibold">
+                 Sign In
+               </button>
+             </SignInButton>
+           </SignedOut>
         
-        }
-
+           <SignedIn>
+             <UserButton signInUrl="/dashboard" afterSignOutUrl="/" />
+           </SignedIn>
+         </div>
       </div>
     </nav>
   );
