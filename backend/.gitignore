@@ -11,6 +11,7 @@ dist/
 
 # Environment variables
 .env
+firebase-service-account.json
 
 # Log files
 *.log

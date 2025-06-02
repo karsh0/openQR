@@ -1,24 +1,24 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import { NextFunction, Request, Response } from "express";
+import jwt, { decode } from "jsonwebtoken";
+require('dotenv').config();
 
-export default function middleware(req:Request ,res:Response ,next:NextFunction){
-    const token = req.cookies.token;
-    if (!token) {
-        res.status(401).json({ message: "Token not found" });
-        return;
+export function authMiddleware(req:Request ,res:Response ,next:NextFunction){
+    const authHeader = req.headers["authorization"];
+    const token = authHeader?.split(" ")[1];
+    try{
+        //@ts-ignore
+        const decoded = jwt.decode(token, process.env.JWT_AUTH_KEY , { algorithms: ["RS256"] });
+        console.log('in middleware')
+
+        if(decoded?.sub){
+            req.userId = decoded.sub
+            next()
     }
-
-    try {
-        const verified = jwt.verify(token, process.env.JWT_SECRET ?? "") as JwtPayload;
-        
-        if (verified.userId) {
-            req.userId = verified.userId; 
-            next();
-            return;
-        }
-    } catch (error) {
-        res.status(403).json({ message: "Invalid token" });
     }
-
-    res.status(403).json({ message: "Authorization failed" });
+    catch(e){
+        res.status(403).json({
+            message:"error in middleware"
+        })
+    }
+  
 }
