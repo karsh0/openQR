@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import QRCode from "react-qr-code";
 import axios from "axios";
 import { BACKEND_URL } from "../config/config";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 type PopupProps = {
